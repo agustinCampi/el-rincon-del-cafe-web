@@ -32,18 +32,23 @@
       }
       /* Estilos para el menú móvil */
       #mobile-menu {
-        transition: max-height 0.3s ease-out; /* Para una transición suave al abrir/cerrar */
-        overflow: hidden; /* Oculta el contenido extra */
-        max-height: 0; /* Por defecto oculto por JS */
-        /* Tailwind's hidden class will also control initial state */
+        transition: max-height 0.3s ease-out, opacity 0.3s ease-out; /* Animación de altura y opacidad */
+        overflow: hidden;
+        max-height: 0; /* Por defecto oculto */
+        opacity: 0; /* Por defecto invisible */
+        pointer-events: none; /* Deshabilita interacciones cuando está oculto */
       }
       #mobile-menu.active {
         max-height: 500px; /* Suficientemente grande para mostrar todo el menú */
+        opacity: 1;
+        pointer-events: auto; /* Habilita interacciones */
       }
       @media (min-width: 768px) {
         /* En pantallas medianas y grandes, restaurar el max-height para evitar conflictos */
         #mobile-menu {
           max-height: none !important;
+          opacity: 1 !important; /* Asegurar visibilidad */
+          pointer-events: auto !important; /* Asegurar interacciones */
         }
       }
     </style>
@@ -55,7 +60,7 @@
       >
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-center justify-between h-20">
-            <a class="flex items-center gap-3" href="#">
+            <a class="flex items-center gap-3" href="#hero">
               <svg
                 class="h-8 w-8 text-[var(--color-brown-dark)]"
                 fill="none"
@@ -78,7 +83,7 @@
             <nav id="main-nav" class="hidden md:flex items-center gap-8">
               <a
                 class="text-[var(--color-brown-dark)] hover:text-[var(--color-caramel)] transition-colors duration-300"
-                href="#"
+                href="#hero"
                 >Inicio</a
               >
               <a
@@ -126,7 +131,7 @@
         >
           <a
             class="text-[var(--color-brown-dark)] hover:text-[var(--color-caramel)] transition-colors duration-300 text-lg py-2"
-            href="#"
+            href="#hero"
             >Inicio</a
           >
           <a
@@ -154,6 +159,7 @@
       <main class="flex-grow">
         <section
           class="h-screen w-full bg-cover bg-center flex items-center justify-center relative"
+          id="hero"
           style="
             background-image: linear-gradient(
                 rgba(0, 0, 0, 0.4),
@@ -695,10 +701,10 @@
 
             if (targetElement) {
               const headerOffset =
-                document.querySelector("header").offsetHeight;
+                document.querySelector("header").offsetHeight; // Altura del header fijo
               const elementPosition =
                 targetElement.getBoundingClientRect().top + window.pageYOffset;
-              const offsetPosition = elementPosition - headerOffset;
+              const offsetPosition = elementPosition - headerOffset; // Ajusta para el header
 
               window.scrollTo({
                 top: offsetPosition,
@@ -711,19 +717,27 @@
         // Mobile Menu Toggle
         const mobileMenuButton = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
-        const mainNav = document.getElementById("main-nav"); // El menú de desktop
+        const mainNav = document.getElementById("main-nav"); // El menú de desktop (para control de visibilidad en resize)
 
         if (mobileMenuButton && mobileMenu && mainNav) {
+          // Ocultar menú móvil al inicio para que el JS lo muestre con 'active'
+          mobileMenu.classList.add("hidden");
+
           mobileMenuButton.addEventListener("click", function () {
-            mobileMenu.classList.toggle("active"); // Usa 'active' para controlar visibilidad del menú móvil
+            mobileMenu.classList.toggle("active"); // Alterna la clase 'active' para controlar CSS
+            mobileMenu.classList.toggle("hidden"); // Alterna la clase 'hidden' de Tailwind
           });
 
           // Cerrar menú móvil si se hace clic en un enlace (para single-page)
           mobileMenu.querySelectorAll("a").forEach((link) => {
             link.addEventListener("click", function () {
-              // Asegúrate de que solo se cierre si está en modo móvil (no si es el menú de desktop)
-              if (mobileMenu.classList.contains("active")) {
+              // Asegúrate de que solo se cierre si está en modo móvil
+              if (
+                window.innerWidth < 768 &&
+                mobileMenu.classList.contains("active")
+              ) {
                 mobileMenu.classList.remove("active");
+                mobileMenu.classList.add("hidden");
               }
             });
           });
@@ -731,13 +745,14 @@
           // Ajustar visibilidad del menú principal y móvil al cambiar el tamaño de la ventana
           window.addEventListener("resize", function () {
             if (window.innerWidth >= 768) {
-              // md breakpoint de Tailwind
+              // Si es desktop
               mainNav.classList.remove("hidden"); // Asegura que el menú de desktop sea visible
-              mobileMenu.classList.remove("active"); // Asegura que el menú móvil esté oculto si se redimensiona a desktop
-              // Asegurarse de que el menú móvil esté oculto si se redimensiona desde móvil a desktop
-              mobileMenu.classList.add("hidden");
+              mobileMenu.classList.remove("active"); // Asegura que el menú móvil esté inactivo
+              mobileMenu.classList.add("hidden"); // Asegura que el menú móvil esté oculto
             } else {
+              // Si es móvil
               mainNav.classList.add("hidden"); // Oculta el menú de desktop en móvil
+              // La visibilidad del menú móvil la controla el botón
             }
           });
         }
