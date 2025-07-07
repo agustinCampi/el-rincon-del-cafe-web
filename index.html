@@ -1,0 +1,130 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <title>El Rincón del Café</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+      :root {
+        --color-brown-dark: #3f2e24;
+        --color-beige: #f5f0e1;
+        --color-caramel: #b08968;
+        --color-green-soft: #8b9a6f;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
+      }
+    </style>
+  </head>
+  <body class="bg-[var(--color-beige)] text-[var(--color-brown-dark)]">
+    <div class="relative min-h-screen flex flex-col">
+      <header
+        class="sticky top-0 z-50 bg-[var(--color-beige)]/80 backdrop-blur-sm shadow-sm"
+      >
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between h-20">
+            <a class="flex items-center gap-3" href="#">
+              <svg
+                class="h-8 w-8 text-[var(--color-brown-dark)]"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"></path>
+                <path d="M16 17h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"></path>
+                <path d="M11 7h4"></path>
+                <path d="M11 11h4"></path>
+                <path d="M11 15h4"></path>
+              </svg>
+              <span class="text-2xl font-bold text-[var(--color-brown-dark)]"
+                >El Rincón del Café</span
+              >
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+              <a
+                class="text-[var(--color-brown-dark)] hover:text-[var(--color-caramel)] transition-colors duration-300"
+                href="#"
+                >Inicio</a
+              >
+              <a
+                class="text-[var(--color-brown-dark)] hover:text-[var(--color-caramel)] transition-colors duration-300"
+                href="#"
+                >Menú</a
+              >
+              <a
+                class="text-[var(--color-brown-dark)] hover:text-[var(--color-caramel)] transition-colors duration-300"
+                href="#"
+                >Sobre Nosotros</a
+              >
+              <a
+                class="text-[var(--color-brown-dark)] hover:text-[var(--color-caramel)] transition-colors duration-300"
+                href="#"
+                >Contacto</a
+              >
+            </nav>
+            <button class="md:hidden">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 6h16M4 12h16m-7 6h7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+      <main class="flex-grow">
+        <section
+          class="h-screen w-full bg-cover bg-center flex items-center justify-center relative"
+          style="
+            background-image: linear-gradient(
+                rgba(0, 0, 0, 0.4),
+                rgba(0, 0, 0, 0.4)
+              ),
+              url('https://images.unsplash.com/photo-1511920183353-30b501742a13?q=80&amp;w=3087&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+          "
+        >
+          <div class="text-center text-white px-4">
+            <h1 class="text-6xl md:text-8xl font-bold mb-4 drop-shadow-lg">
+              El Rincón del Café
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 font-light drop-shadow-md">
+              Tu Pausa Perfecta, Sabor y Aroma en Cada Taza
+            </p>
+            <a
+              class="inline-block bg-[var(--color-caramel)] text-white font-bold py-3 px-8 rounded-full text-lg uppercase tracking-wider hover:bg-[var(--color-green-soft)] transition-colors duration-300"
+              href="#"
+            >
+              Ver Menú
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
